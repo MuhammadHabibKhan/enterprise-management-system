@@ -7,6 +7,21 @@
     font-family: 'poppins', sans-serif;
 }
 
+body {
+    animation: fadeInAnimation ease-in 1.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
+  }
+  
+  @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+  }
+
 section{
     display: flex;
     justify-content: center;
