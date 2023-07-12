@@ -15,29 +15,7 @@ function Login(){
         setPass(e.target.value);
     }
 
-    const [buttonClicked, setButtonClicked] = useState(false);
-
-    // const getData = async (param1, param2) => {
-    //     try {
-    //       const url = `/login?param1=${param1}&param2=${param2}`;
-    //       const response = await fetch(url, {
-    //         method: 'GET',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         }
-    //       });
-      
-    //       if (response.ok) {
-    //         const data = await response.json();
-    //         console.log(data); // Handle the response from the server
-    //       } else {
-    //         console.error('Error:', response.status);
-    //       }
-    //     } catch (error) {
-    //       console.error('Error:', error);
-    //     }
-    // };
-      
+    const [buttonClicked, setButtonClicked] = useState(false);   
 
     useEffect ( () => {
         if (buttonClicked){
@@ -55,13 +33,6 @@ function Login(){
         }
 
     }, [buttonClicked, pass, userName] )  
-
-    // useEffect ( () => {
-    //     if (buttonClicked){
-    //         getData(userName, pass)
-    //     }
-
-    // }, [buttonClicked] )  
 
     return(
         <section>
