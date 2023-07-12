@@ -10,22 +10,38 @@ var con = mysql.createConnection({
   password: "root"
 });
 
+let username;
+let pass;
+let token;
 
-app.get("/api", (req, res) => {
+app.get("/login", (req, res) => {
 
-  const username = req.query.param1;
+  username = req.query.param1;
+  pass = req.query.param2;
+
   console.log("para1: " + username);
+  console.log("para2: " + pass);
 
   const sql2 = "USE ems;";
   con.query(sql2, (err, result) => {
     if (err) throw err;
   })
 
-  const sql = "SELECT user_id,username FROM User;";
+  const sql = "SELECT username,pass FROM User;";
   con.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(result)
-    return res.json(result);
+
+    for (let x = 0; x < result.length; x++){
+      if (result[x].username === username && result[x].pass === pass){
+        console.log("Username and password matched");
+        token = Math.floor(Math.random() * 10);
+        console.log(token)
+      }
+      else{
+        console.log("Invalid Username or Password");
+      }
+    }
+    return res.json(token);
   })
 })
 
