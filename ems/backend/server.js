@@ -60,5 +60,47 @@ app.get("/users", (req, res) => {
   })
 })
 
+app.get("/user", (req, res) => {
+  username = req.query.param1;
+  const sql2 = "USE ems;";
+  con.query(sql2, (err, result) => {
+    if (err) throw err;
+  })
+
+  const sql = "SELECT emp_name FROM User WHERE userName = username;";
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result)
+    return res.json(result);
+  })
+})
+
+app.use(express.json())
+app.post('/attendanceUpdate', (req, res) => {
+
+  const sql2 = "USE ems;";
+  con.query(sql2, (err, result) => {
+    if (err) throw err;
+  })
+
+  console.log(typeof(req.body));
+  const { userID, date, overtime, rptTime, lateHours, attendance } = req.body;
+  console.log("att:" + attendance)
+  // Insert data into the database
+  con.query(
+    'INSERT INTO Attendance (user_id, overtime, late_hours, attendance_date, attendance, rpt_time) VALUES (?, ?, ?, ?, ?, ?)',
+    [userID, overtime, lateHours, date, attendance, rptTime],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting data:', error);
+        res.status(500).json({ error: 'An error occurred while inserting data.' });
+      } else {
+        console.log('Data inserted successfully:', results);
+        res.json({ message: 'Data inserted successfully.' });
+      }
+    }
+  );
+});
+
 
 app.listen(5000, ()=> {console.log("Server started on port 5000")})

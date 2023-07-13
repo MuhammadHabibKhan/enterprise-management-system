@@ -1,11 +1,14 @@
 import React from 'react';
 import './index.css';
 import TodoList from '../TodoList';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    let username = location.state?.uname;
 
   const handleAttendance = () => {
     // Handle attendance logic
@@ -24,6 +27,23 @@ const Dashboard = () => {
     console.log('Add new user');
   };
 
+  const [user, setUser] = useState();
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`/user?param1=${username}`);
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.log('Error fetching user:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch the user list from the server
+    fetchUser();
+  }, []);
+
   return (
     <>
         <div className="admin-dashboard">
@@ -32,7 +52,7 @@ const Dashboard = () => {
                 <div className="profile-icon"></div>
             </div>
 
-            <h1 className="dashboard-title">Welcome!</h1>
+            <h1 className="dashboard-title">Welcome {user && user[0]?.emp_name}!</h1>
         </div>
         <div className='main'>
             <div className='dashboard-options'>

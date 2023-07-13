@@ -1,11 +1,12 @@
 import './index.css';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Login(){
 
     let token = useRef();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [userName, setUserName] = useState();
     const changeUserName = (e) => {
@@ -30,7 +31,7 @@ function Login(){
                     if (result != null){
                         token.current = result
                         console.log(token.current)
-                        navigate('/Dashboard')
+                        navigate('/Dashboard', {state: {uname: userName}})
                     }
                         
                 })
@@ -54,7 +55,7 @@ function Login(){
                         </div>
                         
                         <div className="inputBox">
-                            <input type="text" onChange={changePass} required/>
+                            <input type="password" onChange={changePass} required/>
                             <label>Password</label>
                         </div>
                         
