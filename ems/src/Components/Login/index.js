@@ -1,9 +1,11 @@
 import './index.css';
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login(){
 
     let token = useRef();
+    const navigate = useNavigate();
 
     const [userName, setUserName] = useState();
     const changeUserName = (e) => {
@@ -25,7 +27,12 @@ function Login(){
             fetch(url)
                 .then (response => response.json())
                 .then (result => {
-                    token.current = result
+                    if (result != null){
+                        token.current = result
+                        console.log(token.current)
+                        navigate('/Dashboard')
+                    }
+                        
                 })
                 .catch(error => {
                     console.log(error)
@@ -42,16 +49,16 @@ function Login(){
                         <h2>Login</h2>
 
                         <div className="inputBox">
-                            <input type="username" onChange={changeUserName} required/>
+                            <input type="text" onChange={changeUserName} required/>
                             <label>Username</label>
                         </div>
                         
                         <div className="inputBox">
-                            <input type="password" onChange={changePass} required/>
+                            <input type="text" onChange={changePass} required/>
                             <label>Password</label>
                         </div>
                         
-                        <button onClick={ () => setButtonClicked(true) }>
+                        <button type='button' onClick={ () => setButtonClicked(true) }>
                             Login
                         </button>
                     </form>

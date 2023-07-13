@@ -16,6 +16,7 @@ let token;
 
 app.get("/login", (req, res) => {
 
+  token = null;
   username = req.query.param1;
   pass = req.query.param2;
 
