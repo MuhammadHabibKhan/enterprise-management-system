@@ -1,11 +1,17 @@
 import React from 'react';
 import './index.css';
 import TodoList from '../TodoList';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+
+    const navigate = useNavigate();
+
   const handleAttendance = () => {
     // Handle attendance logic
     console.log('Attendance marked');
+    navigate('/Attendance')
+
   };
 
   const handleEditProfile = () => {
@@ -28,11 +34,9 @@ const Dashboard = () => {
 
             <h1 className="dashboard-title">Welcome!</h1>
         </div>
-
         <div className='main'>
             <div className='dashboard-options'>
-
-                <div className="container">
+                <div className="container" onClick={handleAttendance}>
                     <img src={require('./calender.png')} className="image"/>
                     <div className="overlay">
                         <div className="text">Mark Attendance</div>
@@ -52,7 +56,7 @@ const Dashboard = () => {
                         <div className="text">Edit User Profile</div>
                     </div>
                 </div>
-
+                <hr/>
             </div>
 
             <div className='todo'>

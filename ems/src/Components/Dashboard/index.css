@@ -3,8 +3,20 @@
     padding: 0;
 }
 
-body{
-    background-color: #b2d4f7;
+body {
+  animation: fadeInAnimation ease-in 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: none;
+  background-color: #b2d4f7;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
 }
 
 .admin-dashboard {
@@ -95,6 +107,7 @@ body{
     position: relative;
     width: 90%;
     /* margin-left: -20%; */
+    cursor: pointer;
   }
   
   .image {
@@ -130,5 +143,10 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
+  }
+
+  hr{
+    margin-top: -130px;
+    width: 15px;
   }
   

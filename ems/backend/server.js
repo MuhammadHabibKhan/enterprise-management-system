@@ -46,5 +46,19 @@ app.get("/login", (req, res) => {
   })
 })
 
+app.get("/users", (req, res) => {
+  const sql2 = "USE ems;";
+  con.query(sql2, (err, result) => {
+    if (err) throw err;
+  })
+
+  const sql = "SELECT user_id,emp_name FROM User;";
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result)
+    return res.json(result);
+  })
+})
+
 
 app.listen(5000, ()=> {console.log("Server started on port 5000")})
