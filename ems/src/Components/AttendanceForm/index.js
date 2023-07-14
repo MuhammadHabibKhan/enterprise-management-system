@@ -10,6 +10,7 @@ const AttendanceForm = () => {
   const [lateHours, setLateHours] = useState('');
   const [attendance, setAttendance] = useState('');
   const [userList, setUserList] = useState([]);
+  const [salary, setSalary] = useState('');
 
   useEffect(() => {
     // Fetch the user list from the server
@@ -51,6 +52,10 @@ const AttendanceForm = () => {
     setAttendance(event.target.value);
   };
 
+  const handleSalaryChange = (event) => {
+    setSalary(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Perform submission logic here
@@ -65,7 +70,7 @@ const AttendanceForm = () => {
             overtime: overtime,
             rptTime: reportingTime,
             lateHours: lateHours,
-            attendance: attendance
+            attendance: attendance,
         }),
       })
         .then((response) => response.json())
@@ -139,7 +144,7 @@ const AttendanceForm = () => {
           </select>
         </div>
 
-        <button type="submit" className="submit-button">Update</button>
+        <button type="submit" className="submit-button">Mark</button>
       </form>
     </div>
   );

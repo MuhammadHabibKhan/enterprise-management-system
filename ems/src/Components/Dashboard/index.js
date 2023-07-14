@@ -6,25 +6,21 @@ import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    let username = location.state?.uname;
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  let username = location.state?.uname;    
+  
   const handleAttendance = () => {
-    // Handle attendance logic
-    console.log('Attendance marked');
     navigate('/Attendance')
-
   };
 
   const handleEditProfile = () => {
-    // Handle edit profile logic
     console.log('Edit user profile');
+    navigate('/NewProfile', {state: {adminText:"Edit Admin Profile", workerText: "Edit Worker Profile"}})
   };
 
   const handleAddUser = () => {
-    // Handle add user logic
-    console.log('Add new user');
+    navigate('/NewProfile', {state: {adminText:"Add New Admin", workerText: "Add New Worker"}})
   };
 
   const [user, setUser] = useState();
@@ -33,6 +29,7 @@ const Dashboard = () => {
     try {
       const response = await fetch(`/user?param1=${username}`);
       const data = await response.json();
+      console.log(data)
       setUser(data);
     } catch (error) {
       console.log('Error fetching user:', error);
@@ -45,7 +42,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
+    <div className='dash'>
         <div className="admin-dashboard">
 
             <div className="dashboard-cover">
@@ -56,6 +53,7 @@ const Dashboard = () => {
         </div>
         <div className='main'>
             <div className='dashboard-options'>
+  
                 <div className="container" onClick={handleAttendance}>
                     <img src={require('./calender.png')} className="image"/>
                     <div className="overlay">
@@ -63,14 +61,14 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className="container">
+                <div className="container" onClick={handleAddUser}>
                     <img src={require('./userplus.png')} className="image"/>
                     <div className="overlay">
                         <div className="text">New Profile</div>
                     </div>
                 </div>
 
-                <div className="container">
+                <div className="container" onClick={handleEditProfile}>
                     <img src={require('./userchange.png')} className="image"/>
                     <div className="overlay">
                         <div className="text">Edit User Profile</div>
@@ -84,7 +82,7 @@ const Dashboard = () => {
             </div>
 
         </div>
-    </>
+    </div>
   );
 };
 

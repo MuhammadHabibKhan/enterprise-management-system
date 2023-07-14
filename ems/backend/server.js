@@ -61,13 +61,13 @@ app.get("/users", (req, res) => {
 })
 
 app.get("/user", (req, res) => {
-  username = req.query.param1;
+  let u  = req.query.param1;
   const sql2 = "USE ems;";
   con.query(sql2, (err, result) => {
     if (err) throw err;
   })
 
-  const sql = "SELECT emp_name FROM User WHERE userName = username;";
+  const sql = `SELECT emp_name FROM User WHERE (username = '${u}');`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result)
@@ -86,7 +86,6 @@ app.post('/attendanceUpdate', (req, res) => {
   console.log(typeof(req.body));
   const { userID, date, overtime, rptTime, lateHours, attendance } = req.body;
   console.log("att:" + attendance)
-  // Insert data into the database
   con.query(
     'INSERT INTO Attendance (user_id, overtime, late_hours, attendance_date, attendance, rpt_time) VALUES (?, ?, ?, ?, ?, ?)',
     [userID, overtime, lateHours, date, attendance, rptTime],
@@ -100,6 +99,86 @@ app.post('/attendanceUpdate', (req, res) => {
       }
     }
   );
+});
+
+app.post('/NewAdmin', (req, res) => {
+
+  const sql2 = "USE ems;";
+  con.query(sql2, (err, result) => {
+    if (err) throw err;
+  })
+
+  console.log(typeof(req.body));
+  const { userID, username, password, name, cnic, phone, address, joinDate, salary, title, authority_lvl } = req.body;
+  // Insert data into the database
+  con.query(
+    'INSERT INTO User VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [username, userID, name, phone, cnic, password, address, joinDate, salary],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting data:', error);
+        // res.status(500).json({ error: 'An error occurred while inserting data.' });
+      } else {
+        console.log('Data inserted successfully:', results);
+        // res.json({ message: 'Data inserted successfully.' });
+      }
+    }
+  );
+
+  con.query(
+    'INSERT INTO Admin VALUES (?, ?, ?)',
+    [userID, title, authority_lvl],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting data:', error);
+        res.status(500).json({ error: 'An error occurred while inserting data.' });
+      } else {
+        console.log('Data inserted successfully:', results);
+        res.json({ message: 'Data inserted successfully.' });
+      }
+    }
+  );
+
+});
+
+app.post('/NewWorker', (req, res) => {
+
+  const sql2 = "USE ems;";
+  con.query(sql2, (err, result) => {
+    if (err) throw err;
+  })
+
+  console.log(typeof(req.body));
+  const { userID, username, password, name, cnic, phone, address, joinDate, salary, overtimeRate, skillArea, expertise } = req.body;
+  // Insert data into the database
+  con.query(
+    'INSERT INTO User VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [username, userID, name, phone, cnic, password, address, joinDate, salary],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting data:', error);
+        // res.status(500).json({ error: 'An error occurred while inserting data.' });
+      } else {
+        console.log('Data inserted successfully:', results);
+        // res.json({ message: 'Data inserted successfully.' });
+      }
+    }
+  );
+
+  con.query(
+    'INSERT INTO Worker VALUES (?, ?, ?, ?)',
+    [userID, overtimeRate, skillArea, expertise],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting data:', error);
+        res.status(500).json({ error: 'An error occurred while inserting data.' });
+      } else {
+        console.log('Data inserted successfully:', results);
+        res.json({ message: 'Data inserted successfully.' });
+      }
+    }
+  );
+
 });
 
 

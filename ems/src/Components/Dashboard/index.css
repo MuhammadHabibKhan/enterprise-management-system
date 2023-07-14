@@ -1,13 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 *{
     margin: 0;
     padding: 0;
 }
 
-body {
-  animation: fadeInAnimation ease-in 2s;
+body{
+  background-color: #b2d4f7;
+}
+
+.dash {
+  animation: fadeInAnimation ease-in-out 2s;
   animation-iteration-count: 1;
   animation-fill-mode: none;
-  background-color: #b2d4f7;
 }
 
 @keyframes fadeInAnimation {
@@ -54,8 +59,9 @@ body {
   }
   
   .dashboard-title {
-    font-size: 24px;
+    font-size: 26px;
     margin: 20px 0;
+    font-family: Poppins;
   }
   
   .main{

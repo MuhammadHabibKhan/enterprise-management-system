@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 function Login(){
 
-    let token = useRef();
+    // let token = useRef();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -29,8 +29,8 @@ function Login(){
                 .then (response => response.json())
                 .then (result => {
                     if (result != null){
-                        token.current = result
-                        console.log(token.current)
+                        window.sessionStorage.setItem("token", result);
+                        // console.log(token.current)
                         navigate('/Dashboard', {state: {uname: userName}})
                     }
                         
